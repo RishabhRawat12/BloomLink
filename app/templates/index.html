@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>URL Shortener</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 60px;
+    }
+    input {
+      width: 600px;
+      padding: 8px;
+    }
+    button {
+      padding: 8px 16px;
+      margin-left: 10px;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>URL Shortener</h2>
+
+  <input id="longUrl" placeholder="Enter long URL here" />
+  <button onclick="shorten()">Shorten</button>
+
+  <div id="result"></div>
+
+  <script>
+    async function shorten() {
+      const longUrl = document.getElementById("longUrl").value;
+
+      if (!longUrl) {
+        alert("Please enter a URL");
+        return;
+      }
+
+      const response = await fetch("/shorten", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ longUrl })
+      });
+
+      const data = await response.json();
+
+      if (data.shortCode) {
+        const shortLink = `${window.location.origin}/${data.shortCode}`;
+        document.getElementById("result").innerHTML =
+          `Short URL: <a href="${shortLink}" target="_blank">${shortLink}</a>`;
+      } else {
+        document.getElementById("result").innerText =
+          "Error creating short URL";
+      }
+    }
+  </script>
+
+</body>
+</html>
