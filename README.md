@@ -1,84 +1,41 @@
-# High-Throughput URL Shortener
+# 🌸 BloomLink | Enterprise URL Management
 
-A **read-optimized URL shortener** designed around real production bottlenecks seen in large-scale systems, not just basic CRUD APIs.
+BloomLink is a high-performance URL shortener built with **FastAPI**, **Redis**, and **MySQL**. It is designed to handle viral traffic spikes using advanced caching strategies.
 
-This project focuses on solving:
-- Cache penetration from random requests
-- Hot-key amplification during viral traffic
-- Cold-start failures after service restarts
-- Redis single-key bottlenecks
 
----
 
-## Features
+## 🚀 Key Features
+* **High-Speed Redirects**: Utilizing an in-memory **LRU Cache** and **Redis** for sub-millisecond response times.
+* **Hot-Key Protection**: Automatically detects "viral" links and replicates them across multiple Redis nodes to prevent database bottlenecks.
+* **Bloom Filter**: Optimized lookups that check if a link exists before querying the database, reducing unnecessary load.
+* **Analytics Dashboard**: Real-time tracking of clicks, IP hashes (anonymized), and system resilience diagnostics.
 
-- **Bloom Filter–based existence check**
-  - Prevents cache penetration
-  - Rejects invalid short codes in O(1)
-  - Memory-efficient probabilistic data structure
+## 🛠️ Tech Stack
+* **Backend**: Python (FastAPI)
+* **Database**: MySQL (SQLAlchemy ORM)
+* **Cache**: Redis (Memurai)
+* **Frontend**: HTML5, Jinja2 Templates, Tailwind-inspired CSS
 
-- **Multi-layer caching strategy**
-  - Redis / Redis-compatible cache for fast reads
-  - TTL-based eviction
-  - In-process LRU cache as a fallback when Redis is unavailable
+## 🚦 Getting Started
 
-- **Hot-key detection**
-  - Fixed time-window–based request counting
-  - Prevents infinite counter growth
-  - Identifies URLs experiencing burst traffic
+### Prerequisites
+1.  **MySQL**: Running via XAMPP or standalone (Port 3306).
+2.  **Redis**: Memurai or Redis server (Port 6379).
+3.  **Python 3.10+**
 
-- **Hot-key replication**
-  - Replicates hot keys across multiple Redis keys
-  - Randomized read distribution
-  - Prevents single-key Redis bottlenecks
-  - Supports horizontal read scaling
+### Installation
+1.  Clone the repository:
+    ```bash
+    git clone [https://github.com/your-username/URL-SHORTNER.git](https://github.com/your-username/URL-SHORTNER.git)
+    ```
+2.  Install dependencies:
+    ```bash
+    pip install -r requirements.txt
+    ```
+3.  Run the application:
+    ```bash
+    .\run.bat
+    ```
 
-- **Cold-start safety**
-  - Bloom Filter rebuilt from MongoDB on startup
-  - Existing short URLs continue to work after restart
-
-- **Persistent storage**
-  - MongoDB as the source of truth
-  - Collision-safe short code generation
-
-- **Minimal Web UI**
-  - Browser-based URL shortening
-  - No terminal or API tools required
-
----
-
-## Architecture Overview
-
-Client
-↓
-FastAPI
-↓
-Bloom Filter (existence check)
-↓
-LRU Cache (in-process)
-↓
-Redis / Redis-compatible Cache
-↓
-MongoDB (source of truth)
-
-For hot URLs, Redis reads are **replicated across multiple keys** to distribute load.
-
----
-
-## Tech Stack
-
-- **Backend:** FastAPI (Python)
-- **Database:** MongoDB
-- **Cache:** Redis / Memurai
-- **In-memory Cache:** Custom LRU Cache
-- **Probabilistic DS:** Bloom Filter
-- **Frontend:** HTML + JavaScript
-- **Load Testing:** Python (threading + requests)
-
----
-
-## Run (Local)
-
-### 1. Install dependencies
-```bash
-pip install -r requirements.txt
+## 📊 System Resilience
+The system monitors traffic patterns. If a link crosses the **Hot-Key Threshold**, the analytics page will display active replication nodes, demonstrating the system's ability to scale under pressure.

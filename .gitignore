@@ -1,15 +1,19 @@
-# Python
+# Python temporary files
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
+*.py[cod]
+*$py.class
 
-# Virtual environment
-venv/
-
-# Environment variables
+# Environment variables (Where your passwords live)
 .env
 
-# OS files
-.DS_Store
-Thumbs.db
+# Virtual environments
+venv/
+env/
+.venv/
+
+# IDE specific files
+.vscode/
+.idea/
+
+# Database files
+*.sqlite3
