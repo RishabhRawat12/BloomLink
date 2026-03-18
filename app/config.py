@@ -1,9 +1,16 @@
-MONGO_URI = "mongodb://localhost:27017"
-DB_NAME = "url_shortener"
-COLLECTION_NAME = "urls"
+import os
 
-REDIS_HOST = "localhost"
-REDIS_PORT = 6379
-REDIS_TTL_SECONDS = 3600
+DATABASE_URL = os.getenv("DATABASE_URL")
+if not DATABASE_URL:
+    raise ValueError("DATABASE_URL must be set in environment")
 
-LRU_CAPACITY = 1000
+REDIS_HOST = os.getenv("REDIS_HOST", "localhost")
+REDIS_PORT = int(os.getenv("REDIS_PORT", 6379))
+REDIS_TTL_SECONDS = int(os.getenv("REDIS_TTL_SECONDS", 3600))
+
+LRU_CAPACITY = int(os.getenv("LRU_CAPACITY", 1000))
+
+RESERVED_KEYWORDS = {
+    "api", "docs", "admin", "static", "analytics", 
+    "shorten", "links", "dashboard", "favicon.ico"
+}

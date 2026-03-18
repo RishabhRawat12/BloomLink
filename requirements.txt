@@ -1,6 +1,8 @@
 fastapi
 uvicorn
-pymongo
 redis
 pydantic
-requests
+sqlalchemy
+pymysql
+slowapi
+jinja2
