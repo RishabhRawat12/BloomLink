@@ -1,26 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>BloomLink | Management Dashboard</title>
+    <title>Dashboard</title>
     <style>
-        :root { --primary: #4F46E5; --bg: #F3F4F6; }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); padding: 40px; }
-        .container { max-width: 1000px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-        h1 { color: #111827; margin-bottom: 25px; }
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        th { text-align: left; background: #F9FAFB; padding: 12px; color: #4B5563; font-size: 14px; border-bottom: 2px solid #E5E7EB; }
-        td { padding: 12px; border-bottom: 1px solid #E5E7EB; font-size: 14px; vertical-align: middle; }
-        .code { font-family: monospace; font-weight: bold; color: var(--primary); }
-        .url-cell { max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-        .btn-del { color: #EF4444; border: none; background: none; cursor: pointer; font-weight: 600; }
-        .btn-del:hover { text-decoration: underline; }
-        .stats-link { color: var(--primary); text-decoration: none; font-weight: 500; }
+        :root {
+            --primary: #4F46E5;
+            --bg: #F3F4F6;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        h1 {
+            color: #111827;
+            margin-bottom: 25px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th {
+            text-align: left;
+            background: #F9FAFB;
+            padding: 12px;
+            color: #4B5563;
+            font-size: 14px;
+            border-bottom: 2px solid #E5E7EB;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #E5E7EB;
+            font-size: 14px;
+            vertical-align: middle;
+        }
+
+        .code {
+            font-family: monospace;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .url-cell {
+            max-width: 300px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .btn-del {
+            color: #EF4444;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .btn-del:hover {
+            text-decoration: underline;
+        }
+
+        .stats-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
     </style>
 </head>
+
 <body>
     <div class="container">
-        <h1>⚙️ Link Management</h1>
+        <h1>Link Management</h1>
         <table>
             <thead>
                 <tr>
@@ -34,7 +101,7 @@
             <tbody id="linkTable"></tbody>
         </table>
         <br>
-        <a href="/" style="color: #6B7280; text-decoration: none;">← Back to Generator</a>
+        <a href="/" style="color: #6B7280; text-decoration: none;">Back to Generator</a>
     </div>
 
     <script>

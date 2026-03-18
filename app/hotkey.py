@@ -1,4 +1,3 @@
-# app/hotkey.py
 import random
 from app.cache import redis_client
 from app.config import REDIS_TTL_SECONDS

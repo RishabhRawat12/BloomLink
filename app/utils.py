@@ -1,4 +1,3 @@
-# app/utils.py
 import string
 import secrets
 import re

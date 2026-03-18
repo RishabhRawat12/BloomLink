@@ -1,120 +1,212 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BloomLink | Enterprise URL Shortener</title>
+    <title>BloomLink</title>
     <style>
-        :root { 
-            --primary: #4F46E5; 
-            --primary-hover: #4338CA; 
-            --bg: #F3F4F6; 
-            --text: #1F2937; 
-            --error: #EF4444; 
+        :root {
+            --primary: #4F46E5;
+            --primary-hover: #4338CA;
+            --bg: #F3F4F6;
+            --text: #1F2937;
+            --error: #EF4444;
             --success: #10B981;
         }
-        body { 
-            font-family: 'Inter', -apple-system, sans-serif; 
-            background-color: var(--bg); 
-            color: var(--text); 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            padding: 40px 20px; 
-            margin: 0; 
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            margin: 0;
         }
-        .branding { text-align: center; margin-bottom: 30px; }
-        .branding h1 { margin: 0; font-size: 2.5rem; color: var(--primary); letter-spacing: -1px; }
-        .branding p { margin: 5px 0 0; color: #6B7280; }
-        
-        .container { 
-            background: white; 
-            padding: 40px; 
-            border-radius: 16px; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
-            width: 100%; 
-            max-width: 550px; 
+
+        .branding {
+            text-align: center;
+            margin-bottom: 30px;
         }
-        .input-group { margin-bottom: 20px; }
-        label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 14px; color: #374151; }
-        
-        input[type="text"], input[type="number"] { 
-            width: 100%; 
-            padding: 14px; 
-            border: 1px solid #D1D5DB; 
-            border-radius: 8px; 
-            box-sizing: border-box; 
-            font-size: 16px; 
+
+        .branding h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            color: var(--primary);
+            letter-spacing: -1px;
         }
-        input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1); }
-        
-        button { 
-            background-color: var(--primary); 
-            color: white; 
-            border: none; 
-            padding: 14px 20px; 
-            border-radius: 8px; 
-            cursor: pointer; 
-            font-size: 16px; 
-            font-weight: 600; 
-            width: 100%; 
+
+        .branding p {
+            margin: 5px 0 0;
+            color: #6B7280;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            max-width: 550px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #374151;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #D1D5DB;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            width: 100%;
             transition: 0.2s;
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 10px;
         }
-        button:hover { background-color: var(--primary-hover); }
-        button:disabled { opacity: 0.7; cursor: not-allowed; }
 
-        .error-msg { color: var(--error); font-size: 13px; margin-top: 5px; display: none; font-weight: 500; }
-        
-        .result-box { 
-            margin-top: 30px; 
-            padding: 24px; 
-            border: 1px solid #E5E7EB; 
-            border-radius: 12px; 
-            display: none; 
-            background: #F9FAFB; 
+        button:hover {
+            background-color: var(--primary-hover);
+        }
+
+        button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .error-msg {
+            color: var(--error);
+            font-size: 13px;
+            margin-top: 5px;
+            display: none;
+            font-weight: 500;
+        }
+
+        .result-box {
+            margin-top: 30px;
+            padding: 24px;
+            border: 1px solid #E5E7EB;
+            border-radius: 12px;
+            display: none;
+            background: #F9FAFB;
             text-align: center;
             animation: fadeIn 0.3s ease-in;
         }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .flex-row { display: flex; gap: 10px; margin-bottom: 15px; }
-        .copy-btn { width: auto; background-color: #111827; min-width: 80px; }
-        
-        .qr-section { 
-            margin-top: 20px; 
-            padding-top: 20px; 
-            border-top: 1px solid #E5E7EB; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        .qr-code { border-radius: 8px; margin-bottom: 15px; background: white; padding: 10px; border: 1px solid #eee; }
-        
-        .footer-links { margin-top: 20px; display: flex; justify-content: center; gap: 20px; font-size: 14px; }
-        a { color: var(--primary); text-decoration: none; font-weight: 500; }
-        a:hover { text-decoration: underline; }
+
+        .flex-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .copy-btn {
+            width: auto;
+            background-color: #111827;
+            min-width: 80px;
+        }
+
+        .qr-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #E5E7EB;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .qr-code {
+            border-radius: 8px;
+            margin-bottom: 15px;
+            background: white;
+            padding: 10px;
+            border: 1px solid #eee;
+        }
+
+        .footer-links {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            font-size: 14px;
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
 
         /* Spinner for loading state */
         .spinner {
             width: 18px;
             height: 18px;
-            border: 2px solid rgba(255,255,255,0.3);
+            border: 2px solid rgba(255, 255, 255, 0.3);
             border-radius: 50%;
             border-top-color: #fff;
             animation: spin 0.8s linear infinite;
             display: none;
         }
-        @keyframes spin { to { transform: rotate(360deg); } }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
     </style>
 </head>
+
 <body>
     <div class="branding">
         <h1>BloomLink</h1>
-        <p>Enterprise URL Management & Analytics</p>
+        <p>URL Management & Analytics</p>
     </div>
 
     <div class="container">
@@ -122,38 +214,38 @@
             <label for="longUrl">Destination URL</label>
             <input type="text" id="longUrl" placeholder="https://example.com/very/long/path" required>
         </div>
-        
+
         <div class="input-group">
             <label for="customAlias">Custom Alias (Optional)</label>
             <input type="text" id="customAlias" placeholder="e.g., summer-sale">
             <div id="aliasError" class="error-msg"></div>
         </div>
-        
+
         <div class="input-group">
             <label for="expiresIn">Expiration (Hours - Optional)</label>
             <input type="number" id="expiresIn" placeholder="e.g., 24" min="1">
         </div>
-        
+
         <button id="submitBtn" onclick="shortenUrl()">
             <span id="btnText">Shorten URL</span>
             <div id="btnSpinner" class="spinner"></div>
         </button>
 
         <div id="result" class="result-box">
-            <h3 style="margin-top:0; font-size: 18px;">✨ Link Created!</h3>
+            <h3 style="margin-top:0; font-size: 18px;">Link Created!</h3>
             <div class="flex-row">
                 <input type="text" id="shortLink" readonly>
                 <button id="copyBtn" class="copy-btn" onclick="copyToClipboard()">Copy</button>
             </div>
-            
+
             <div class="qr-section">
                 <img id="qrCode" class="qr-code" src="" alt="QR Code">
                 <p style="font-size: 12px; color: #6B7280; margin-bottom: 10px;">Scan to open on mobile</p>
             </div>
 
             <div class="footer-links">
-                <a id="analyticsLink" href="#" target="_blank">📊 View Analytics</a>
-                <a href="/links">⚙️ Manage All Links</a>
+                <a id="analyticsLink" href="#" target="_blank">View Analytics</a>
+                <a href="/links">Manage All Links</a>
             </div>
         </div>
     </div>
@@ -163,7 +255,7 @@
             const longUrl = document.getElementById('longUrl').value;
             const customAlias = document.getElementById('customAlias').value;
             const expiresIn = document.getElementById('expiresIn').value;
-            
+
             const btn = document.getElementById('submitBtn');
             const btnText = document.getElementById('btnText');
             const spinner = document.getElementById('btnSpinner');
@@ -192,12 +284,12 @@
                 });
 
                 const data = await res.json();
-                
+
                 if (res.ok) {
                     resultBox.style.display = 'block';
                     document.getElementById('shortLink').value = data.shortUrl;
                     document.getElementById('analyticsLink').href = `/analytics/${data.shortCode}`;
-                    
+
                     // QR Code Generation via External API
                     const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(data.shortUrl)}`;
                     document.getElementById('qrCode').src = qrUrl;
@@ -218,15 +310,15 @@
         function copyToClipboard() {
             const copyText = document.getElementById("shortLink");
             const copyBtn = document.getElementById("copyBtn");
-            
+
             copyText.select();
             copyText.setSelectionRange(0, 99999); // For mobile
             navigator.clipboard.writeText(copyText.value);
-            
+
             const originalText = copyBtn.innerText;
             copyBtn.innerText = "Copied!";
             copyBtn.style.backgroundColor = "var(--success)";
-            
+
             setTimeout(() => {
                 copyBtn.innerText = originalText;
                 copyBtn.style.backgroundColor = "#111827";
@@ -234,4 +326,5 @@
         }
     </script>
 </body>
+
 </html>

@@ -1,4 +1,3 @@
-# app/bloom_filter.py
 import hashlib
 
 class BloomFilter:
